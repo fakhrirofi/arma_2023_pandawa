@@ -1,0 +1,16 @@
+program call 'n-initial.dat'
+
+program call 'step1'
+program call 'step2'
+program call 'step3'
+program call 'step4'
+program call 'step5'
+program call 'step6'
+program call 'step7'
+program call 'step8'
+program call 'step9'
+program call 'step10'
+program call 'step11'
+program call 'step12'
+
+program return

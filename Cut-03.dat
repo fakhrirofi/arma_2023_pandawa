@@ -1,0 +1,15 @@
+; Simulate mining one cut at a time (18 m blast height)
+
+model restore 'Cut-02'
+
+zone gridpoint free velocity-x range group 'Cut-03'
+
+model solve 
+
+;model factor-of-safety filename 'bf-fos’
+
+model save 'Cut-03'
+
+program return
+
+

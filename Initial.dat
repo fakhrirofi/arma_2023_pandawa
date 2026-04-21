@@ -1,0 +1,78 @@
+
+model large-strain on
+
+; Create zone geometry (alternative via commands)
+;zone create2d quadrilateral point 0 (0,0) point 1 (15,0) ...
+;                            point 2 (0,72) point 3 (15,72) ...
+;                            size 15 72 group 'backfill'
+;
+;zone create2d quadrilateral point 0 (15,0) point 1 (16,0) ...
+;                            point 2 (15,72) point 3 (16,72) ...
+;                            size 1 72 group 'rock'
+
+; Mechanical model and properties
+[global coh = 0.125e6]
+
+zone cmodel assign mohr-coulomb ;define constitutive model
+
+zone property density 1550 young 430e6 poisson 0.39 ... 
+  cohesion [coh] friction 35  tension 0.1e6 ...
+  range group 'backfill'
+
+zone property density 2700 young 70e9 poisson 0.27 ...
+  cohesion 30E6 friction 47 tension 10E6 ...
+  range group 'rock'
+
+; Interfaces
+zone interface create by-face separate range group 'backfill' group 'rock'
+zone interface node property stiffness-normal 1E9 stiffness-shear 1E9
+zone interface node property friction 0
+
+; Boundary conditions 
+zone gridpoint fix velocity-x 0 range group 'rightside'    ;position-x 16
+zone gridpoint fix velocity-x 0 range group 'backfillWest' ;position-x 0
+zone gridpoint fix velocity-y 0 range group 'bottom'       ;position-y 0 
+
+model gravity 9.81 
+
+;The maximum unbalanced force will never exactly reach zero 
+;for a numerical analysis. The model is considered to be in 
+;equilibrium when the maximum unbalanced force is small 
+;compared to the representative forces in the problem.
+;If the unbalanced force approaches a constant non-zero value,
+;this probably indicates that interface slip, or zone failure
+;and plastic flow are occurring within the model 
+;(i.e., unstable).
+model history mechanical unbalanced-maximum
+
+model solve elas
+
+model save 'initial-equillibrium'
+
+; Set non-zero inteface friction
+zone interface node property friction 35
+model solve
+
+; Reset the displacements and velocities to ellimiante any numerical-only values.
+zone gridpoint initialize displacement (0,0) 
+zone gridpoint initialize velocity (0,0)
+
+; Define some Histories along the backfill to be exposed.
+; The x-displacement history is used to evaluate whether the system
+; is coming to equilibrium at each step.
+history interval 50
+zone history name 'y6'  displacement-x position (0,6)
+zone history name 'y12' displacement-x position (0,12)
+zone history name 'y18' displacement-x position (0,18)
+zone history name 'y24' displacement-x position (0,24)
+zone history name 'y30' displacement-x position (0,30)
+zone history name 'y36' displacement-x position (0,36)
+zone history name 'y42' displacement-x position (0,42)
+zone history name 'y48' displacement-x position (0,48)
+zone history name 'y54' displacement-x position (0,54)
+zone history name 'y60' displacement-x position (0,60)
+zone history name 'y66' displacement-x position (0,66)
+
+model save 'initial-state'
+
+program return

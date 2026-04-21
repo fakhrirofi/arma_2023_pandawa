@@ -1,0 +1,58 @@
+sketch set select "backfill mesh"
+sketch edge zone-length-default 1
+sketch point create (0,0) 
+sketch point create (15,0)
+sketch edge create by-points 1 2 type simple
+sketch point create (15,72)
+sketch edge create by-points 2 3 type simple
+sketch point create (0,72) 
+sketch edge create by-points 3 4 type simple
+sketch point create (16,0) 
+sketch edge create by-points 2 5 type simple
+sketch point create (16,72)
+sketch edge create by-points 5 6 type simple
+sketch edge create by-points 6 3 type simple
+sketch point create (0,6) 
+sketch edge create by-points 1 7 type simple
+sketch point create (0,12) 
+sketch edge create by-points 7 8 type simple
+sketch point create (0,18) 
+sketch edge create by-points 8 9 type simple
+sketch point create (0,24) 
+sketch edge create by-points 9 10 type simple
+sketch point create (0,30) 
+sketch edge create by-points 10 11 type simple
+sketch point create (0,36) 
+sketch edge create by-points 11 12 type simple
+sketch point create (0,42) 
+sketch edge create by-points 12 13 type simple
+sketch point create (0,48) 
+sketch edge create by-points 13 14 type simple
+sketch point create (0,54) 
+sketch edge create by-points 14 15 type simple
+sketch point create (0,60) 
+sketch edge create by-points 15 16 type simple
+sketch point create (0,66) 
+sketch edge create by-points 16 17 type simple
+sketch edge create by-points 17 4 type simple
+sketch edge group "Cut-01" slot "Construction" range id-list 7
+sketch edge group "Cut-02" slot "Construction" range id-list 8
+sketch edge group "Cut-03" slot "Construction" range id-list 9
+sketch edge group "Cut-04" slot "Construction" range id-list 10
+sketch edge group "Cut-05" slot "Construction" range id-list 11
+sketch edge group "Cut-06" slot "Construction" range id-list 12
+sketch edge group "Cut-07" slot "Construction" range id-list 13
+sketch edge group "Cut-08" slot "Construction" range id-list 14
+sketch edge group "Cut-09" slot "Construction" range id-list 15
+sketch edge group "Cut-10" slot "Construction" range id-list 16
+sketch edge group "Cut-11" slot "Construction" range id-list 17
+sketch edge group "Cut-12" slot "Construction" range id-list 18
+sketch edge group "Top" slot "Construction" range id-list 3 6
+sketch edge group "rightside" slot "Construction" range id-list 5
+sketch edge group "iface" slot "Construction" range id-list 2
+sketch edge group "bottom" slot "Construction" range id-list 4 1
+sketch block create automatic
+sketch block group "backfill" slot "Construction" range id-list 2
+sketch block group "rock" slot "Construction" range id-list 1
+zone generate from-sketch
+zone face skin internal slot "Any"

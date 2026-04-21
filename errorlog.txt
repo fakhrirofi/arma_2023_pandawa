@@ -1,0 +1,4 @@
+"FLAC2D 9.00.165"
+2023:12:13:13:24:47
+C:\Program Files\Itasca\ItascaSoftware900\exe64\flac2d900_gui.exe
+Windows 10 Home Single Language : 22631

@@ -1,0 +1,11 @@
+; Simulate mining one cut at a time (48 m blast height)
+
+model restore 'Cut-07'
+
+zone gridpoint free velocity-x range group 'Cut-08' 
+
+model solve 
+
+model save 'Cut-08'
+
+program return
